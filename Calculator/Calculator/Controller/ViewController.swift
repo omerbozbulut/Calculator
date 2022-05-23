@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func equals(_ sender: UIButton) {
-        if repetition && result != ""{
+        if repetition && result != "" && number1 != ""{
             switch process{
             case Process.plus:
                 equal = Int(number1)! + Int(result)!
