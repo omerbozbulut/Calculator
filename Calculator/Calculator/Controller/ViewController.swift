@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var resultLabel: UILabel!
     
-    var result = ""
+    var result = "0"
     var firstNumber = ""
     var equal : Float = 0.0
     var process = Process.plus
@@ -24,10 +24,11 @@ class ViewController: UIViewController {
     
     
     @IBAction func clickNumber(_ sender: UIButton) {
-        if result != "0"{
-            result += "\(sender.titleLabel?.text ?? "0")"
-            updateLabel()
+        if result == "0"{
+           result = ""
         }
+        result += "\(sender.titleLabel?.text ?? "0")"
+        updateLabel()
     }
     
     @IBAction func process(_ sender: UIButton) {
@@ -58,7 +59,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func dotPressed(_ sender: UIButton) {
-        if result != "0"{
+        if result.firstIndex(of: ".") == nil {
             result += "."
             updateLabel()
         }
