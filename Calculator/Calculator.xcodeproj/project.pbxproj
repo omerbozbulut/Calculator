@@ -64,7 +64,6 @@
 				1741C059283A991E007873B8 /* View */,
 				1741C05B283A9F55007873B8 /* Model */,
 				1741C04E283A98CE007873B8 /* Assets.xcassets */,
-				1741C050283A98CE007873B8 /* LaunchScreen.storyboard */,
 				1741C053283A98CE007873B8 /* Info.plist */,
 			);
 			path = Calculator;
@@ -73,6 +72,7 @@
 		1741C059283A991E007873B8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1741C050283A98CE007873B8 /* LaunchScreen.storyboard */,
 				1741C04B283A98CD007873B8 /* Main.storyboard */,
 			);
 			path = View;

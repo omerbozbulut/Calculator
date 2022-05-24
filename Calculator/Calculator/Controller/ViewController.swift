@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
     
     var result = ""
-    var number1 = ""
-    var equal = 0
+    var firstNumber = ""
+    var equal : Float = 0.0
     var process = Process.plus
     var repetition = false
     
@@ -46,43 +46,69 @@ class ViewController: UIViewController {
         }
         
         repetition = true
-        number1 = result
+        firstNumber = result
         result = ""
         updateLabel()
     }
     
     @IBAction func resetPressed(_ sender: UIButton) {
-        number1 = ""
+        firstNumber = ""
         result = ""
         updateLabel()
     }
     
+    @IBAction func dotPressed(_ sender: UIButton) {
+        if result != "0"{
+            result += "."
+            updateLabel()
+        }
+    }
+    
+    
     @IBAction func equals(_ sender: UIButton) {
-        if repetition && result != "" && number1 != ""{
+        if repetition && result != "" && firstNumber != ""{
             switch process{
-            case Process.plus:
-                equal = Int(number1)! + Int(result)!
-                result = String(equal)
+            case .plus:
+                equal = Float(firstNumber)! + Float(result)!
                 
-            case Process.multiply:
-                equal = Int(number1)! * Int(result)!
-                result = String(equal)
+            case .multiply:
+                equal = Float(firstNumber)! * Float(result)!
                 
-            case Process.divide:
-                let equalFloat = Float(number1)! / Float(result)!
-                result = String(equalFloat)
+            case .divide:
+                equal = Float(firstNumber)! / Float(result)!
                 
-            case Process.minus:
-                equal = Int(number1)! - Int(result)!
-                result = String(equal)
+            case .minus:
+                equal = Float(firstNumber)! - Float(result)!
             }
         }
         
+        result = equal.convertToIntString
         repetition = false
         updateLabel()
     }
     
+    @IBAction func convertToNegative(_ sender: UIButton) {
+        if result != ""{
+            let negative = Float(result)!*(-1)
+            result = negative.convertToIntString
+            updateLabel()
+        }
+    }
+    
+    @IBAction func percent(_ sender: UIButton) {
+        let percentResult = Float(result)!/100
+        result = percentResult.convertToIntString
+        updateLabel()
+    }
+    
+    
     func updateLabel(){
         resultLabel.text = result
+    }
+}
+
+extension Float {
+    var convertToIntString: String {
+       return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }
