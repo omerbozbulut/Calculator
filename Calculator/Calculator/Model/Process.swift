@@ -7,6 +7,14 @@
 
 import Foundation
 
-enum Process{
-    case divide, plus, minus, multiply
+enum Process: String{
+    case divide = "/"
+    case plus = "+"
+    case minus = "-"
+    case multiply = "*"
+}
+
+enum Numbers: String {
+    case zero = "0"
+    case one = "1"
 }

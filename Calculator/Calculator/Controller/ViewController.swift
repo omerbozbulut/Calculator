@@ -8,39 +8,39 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     
     @IBOutlet weak var resultLabel: UILabel!
     
-    var result = "0"
+    var result = Numbers.zero.rawValue
     var firstNumber = ""
     var equal : Float = 0.0
     var process = Process.plus
     var repetition = false
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    
     @IBAction func clickNumber(_ sender: UIButton) {
-        if result == "0"{
-           result = ""
+        guard let numberText = sender.titleLabel?.text, let number = Numbers(rawValue: numberText) else { return }
+        
+        if number == .zero {
+            result = ""
         }
-        result += "\(sender.titleLabel?.text ?? "0")"
+        
+        result += "\(sender.titleLabel?.text ?? Numbers.zero.rawValue)"
         updateLabel()
     }
     
     @IBAction func process(_ sender: UIButton) {
-        
         switch sender.titleLabel?.text{
-        case "+":
+        case Process.plus.rawValue:
             process = Process.plus
-        case "-":
+        case Process.minus.rawValue:
             process = Process.minus
-        case "*":
+        case Process.multiply.rawValue:
             process = Process.multiply
-        case "/":
+        case Process.divide.rawValue:
             process = Process.divide
         default:
             break;
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func equals(_ sender: UIButton) {
-        if repetition && result != "" && firstNumber != ""{
+        if repetition && !result.isEmpty && !firstNumber.isEmpty{
             switch process{
             case .plus:
                 equal = Float(firstNumber)! + Float(result)!
@@ -89,11 +89,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func convertToNegative(_ sender: UIButton) {
-        if result != ""{
-            let negative = Float(result)!*(-1)
-            result = negative.convertToIntString
-            updateLabel()
-        }
+        if result.isEmpty { return }
+        let negative = Float(result)!*(-1)
+        result = negative.convertToIntString
+        updateLabel()
     }
     
     @IBAction func percent(_ sender: UIButton) {
